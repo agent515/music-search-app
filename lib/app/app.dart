@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_search_app/core/theme/app_theme.dart';
+import 'package:music_search_app/presentation/screens/splash_screen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,14 +11,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Symphony',
       theme: AppTheme.dark(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Symphony'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: const SplashScreen(),
     );
   }
 }
