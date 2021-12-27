@@ -11,14 +11,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: const [
-          Center(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Center(
             child: Image(
               image: AssetImage('assets/img/app_logo.png'),
               height: 250,
             ),
           ),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home',
+                    arguments: {'uid': '123'});
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Go to Home'),
+              ))
         ],
       ),
     );
