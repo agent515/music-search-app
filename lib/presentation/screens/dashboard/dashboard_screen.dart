@@ -62,11 +62,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text('Welcome ${widget.username}!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: AppColors.lightPurple)),
+              child: Text(
+                'Welcome ${widget.username}!',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: AppColors.lightPurple),
+              ),
             ),
             const SizedBox(height: 20),
             Padding(
