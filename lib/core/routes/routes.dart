@@ -22,7 +22,7 @@ class Routes {
       case '/home':
         return routeBuilder(
           DashboardScreen(
-            uid: map!['uid'],
+            username: map!['username'],
           ),
         );
       case '/favorites':

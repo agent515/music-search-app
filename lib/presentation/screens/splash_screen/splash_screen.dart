@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3)).then((value) =>
         Navigator.pushReplacementNamed(context, '/home',
-            arguments: {'uid': '123'}));
+            arguments: {'username': 'Rohit'}));
 
     return const Scaffold(
       body: Center(

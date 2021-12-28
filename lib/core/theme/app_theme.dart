@@ -7,12 +7,12 @@ class AppTheme {
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
       fontSize: 14.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: AppColors.black,
     ),
     bodyText2: GoogleFonts.openSans(
       fontSize: 12.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: AppColors.black,
     ),
     headline1: GoogleFonts.openSans(
@@ -50,12 +50,12 @@ class AppTheme {
   static TextTheme darkTextTheme = TextTheme(
     bodyText1: GoogleFonts.openSans(
       fontSize: 14.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: AppColors.white,
     ),
     bodyText2: GoogleFonts.openSans(
       fontSize: 12.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: AppColors.white,
     ),
     headline1: GoogleFonts.openSans(
