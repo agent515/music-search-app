@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:music_search_app/core/constants/color_constants.dart';
-import 'package:music_search_app/data/services/auth_service.dart';
+import 'package:music_search_app/presentation/providers/auth_service.dart';
 import 'package:music_search_app/presentation/shared_widgets/loader/loading_indicator_overlay.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {

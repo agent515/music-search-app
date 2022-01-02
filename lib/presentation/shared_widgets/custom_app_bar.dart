@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:music_search_app/data/services/auth_service.dart';
+import 'package:music_search_app/presentation/providers/auth_service.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key, required this.title}) : super(key: key);

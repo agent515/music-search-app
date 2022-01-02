@@ -2,18 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:music_search_app/data/models/app_user.dart';
+import 'package:music_search_app/presentation/providers/database_service.dart';
 
-final authService = ChangeNotifierProvider((ref) => AuthService());
+final authService = ChangeNotifierProvider((ref) => AuthService(ref.read));
 
 class AuthService extends ChangeNotifier {
+  final Reader _reader;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  User? _currentUser;
+  AppUser? _currentUser;
   String? _errorMessage;
   bool _loading = false;
   bool _signInForm = true;
 
-  User? get currentUser => _currentUser;
+  AuthService(this._reader);
+
+  AppUser? get currentUser => _currentUser;
 
   String? get errorMessage => _errorMessage;
 
@@ -21,20 +26,19 @@ class AuthService extends ChangeNotifier {
 
   bool get signInForm => _signInForm;
 
-  set currentUser(val) {
-    _currentUser = val;
-    print("NOTIFIED LISTENERS");
-    notifyListeners();
-  }
-
   set signInForm(val) {
     _signInForm = val;
     notifyListeners();
   }
 
   Future<void> initialize() async {
-    _auth.userChanges().listen((user) {
-      currentUser = user;
+    _auth.userChanges().listen((user) async {
+      if (user != null) {
+        _currentUser = await _reader(databaseService).getUser(user.uid);
+      } else {
+        _currentUser = null;
+      }
+      notifyListeners();
       print("CURRENT USER: $user");
     });
   }
@@ -46,20 +50,36 @@ class AuthService extends ChangeNotifier {
     );
   }
 
-  Future<void> signUpWithEmailAndPassword(
-      {required email, required password}) async {
+  Future<void> signUpWithEmailAndPassword({
+    required name,
+    required email,
+    required password,
+  }) async {
     try {
       _loading = true;
       notifyListeners();
-      await _auth.createUserWithEmailAndPassword(
+
+      // Register user to Firebase
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      User? _firebaseUser = credential.user;
+      if (_firebaseUser == null) {
+        throw Exception('SIGN UP FAILED');
+      }
+      // Save User data on firestore
+      AppUser user = AppUser(uid: _firebaseUser.uid, name: name, email: email);
+      await _reader(databaseService).registerUser(user);
+
       _signInForm = true;
       _loading = false;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       _authExceptionHelper(e);
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -69,9 +89,8 @@ class AuthService extends ChangeNotifier {
       _loading = true;
       notifyListeners();
 
-      UserCredential credential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      _currentUser = credential.user;
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+
       _loading = false;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
@@ -83,7 +102,9 @@ class AuthService extends ChangeNotifier {
     try {
       _loading = true;
       notifyListeners();
+
       await _auth.signOut();
+
       _loading = false;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
