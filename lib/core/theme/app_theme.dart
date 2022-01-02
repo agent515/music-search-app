@@ -92,6 +92,7 @@ class AppTheme {
 
   static ThemeData light() {
     return ThemeData(
+      primaryColor: AppColors.darkPink,
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
@@ -118,6 +119,7 @@ class AppTheme {
 
   static ThemeData dark() {
     return ThemeData(
+      primaryColor: AppColors.darkPink,
       brightness: Brightness.dark,
       appBarTheme: AppBarTheme(
         foregroundColor: AppColors.white,

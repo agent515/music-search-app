@@ -67,7 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headline6!
-                    .copyWith(color: AppColors.lightPurple),
+                    .copyWith(color: AppColors.darkPink),
               ),
             ),
             const SizedBox(height: 20),
