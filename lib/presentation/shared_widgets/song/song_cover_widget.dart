@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:music_search_app/core/constants/color_constants.dart';
 import 'package:music_search_app/data/models/song.dart';
+import 'package:music_search_app/presentation/providers/songs_provider.dart';
 
-class SongCoverWidget extends StatelessWidget {
+class SongCoverWidget extends ConsumerWidget {
   const SongCoverWidget({
     Key? key,
-    required this.song,
+    required this.id,
   }) : super(key: key);
 
-  final Song song;
+  final String id;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    Song song = ref.watch(songsProvider).songsMap[id]!;
+
     return Container(
       height: 200,
       width: 150,

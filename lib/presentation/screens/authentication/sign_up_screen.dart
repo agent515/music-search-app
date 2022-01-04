@@ -41,15 +41,12 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   Future<void> _onSubmit() async {
     if (_formKey.currentState!.validate()) {
-      print("Valid");
       ref.read(authService).signUpWithEmailAndPassword(
             name: _nameController.text,
             email: _emailController.text,
             password: _passwordController.text,
           );
-    } else {
-      print("Not valid");
-    }
+    } else {}
   }
 
   @override

@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Symphony',
-      theme: AppTheme.light(),
+      theme: AppTheme.dark(),
       initialRoute: '/',
       onGenerateRoute: Routes.routes,
     );

@@ -1,0 +1,65 @@
+{
+    "songs": [
+        {
+            "id": "1",
+            "title": "Starboy",
+            "artists": [
+                {
+                    "id": "2",
+                    "name": "Weeked",
+                    "thumbnailUrl": "https://static.wikia.nocookie.net/taylor-swift/images/3/3f/The_Weeknd_1.jpg/revision/latest?cb=20190330062206"
+                }
+            ],
+            "thumbnailUrl": "https://images-na.ssl-images-amazon.com/images/I/814htMhuuML._SL1400_.jpg",
+            "webPageUrl": "https://en.wikipedia.org/wiki/Drake_(musician)",
+            "isFavorited": false
+        },
+        {
+            "id": "2",
+            "title": "Starboy",
+            "artists": [
+                {
+                    "id": "2",
+                    "name": "Weeked",
+                    "thumbnailUrl": "https://static.wikia.nocookie.net/taylor-swift/images/3/3f/The_Weeknd_1.jpg/revision/latest?cb=20190330062206"
+                },
+                {
+                    "id": "3",
+                    "name": "Ariana Grande",
+                    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Ariana_Grande_Grammys_Red_Carpet_2020.png"
+                }
+            ],
+            "thumbnailUrl": "https://www.nme.com/wp-content/uploads/2021/04/the-weeknd-ariana-grande-save-your-tears-remix-video@2000x1270.jpg",
+            "webPageUrl": "https://en.wikipedia.org/wiki/Drake_(musician)",
+            "isFavorited": false
+        },
+        {
+            "id": "3",
+            "title": "One Dance",
+            "artists": [
+                {
+                    "id": "1",
+                    "name": "Drake",
+                    "thumbnailUrl": "https://media1.popsugar-assets.com/files/thumbor/zan-t_Me63if8oqWYE9ENiPLlhA/0x224:2826x3050/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2020/02/11/894/n/1922398/87f6bb525e430e7bd44e40.22278576_/i/Drake.jpg"
+                }
+            ],
+            "thumbnailUrl": "https://cdns-images.dzcdn.net/images/cover/f9eb250381f53fd91f11a854fa040709/500x500.jpg",
+            "webPageUrl": "https://en.wikipedia.org/wiki/Drake_(musician)",
+            "isFavorited": false
+        },
+        {
+            "id": "4",
+            "title": "Our Song",
+            "artists": [
+                {
+                    "id": "4",
+                    "name": "Anne Marie",
+                    "thumbnailUrl": "https://cdns-images.dzcdn.net/images/artist/27660ee3627e7036bd73f00b54473bbf/500x500.jpg"
+                }
+            ],
+            "thumbnailUrl": "https://i.scdn.co/image/ab67616d0000b27385ffe4967e68df2e27128b9b",
+            "webPageUrl": "https://en.wikipedia.org/wiki/Drake_(musician)",
+            "isFavorited": false
+        }
+    ]
+}
