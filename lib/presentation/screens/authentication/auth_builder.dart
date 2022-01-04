@@ -18,7 +18,7 @@ class AuthBuilder extends ConsumerWidget {
     if (user == null) {
       return (signInForm) ? const SignInScreen() : const SignUpScreen();
     } else {
-      return DashboardScreen(username: user.uid);
+      return DashboardScreen();
     }
   }
 }

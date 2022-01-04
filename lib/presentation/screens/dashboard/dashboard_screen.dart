@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:music_search_app/core/constants/color_constants.dart';
+import 'package:music_search_app/data/models/app_user.dart';
+import 'package:music_search_app/presentation/providers/auth_service.dart';
 import 'package:music_search_app/presentation/providers/songs_provider.dart';
 import 'package:music_search_app/presentation/shared_widgets/custom_app_bar.dart';
 import 'package:music_search_app/presentation/shared_widgets/song/song_cover_widget.dart';
 import 'package:music_search_app/presentation/shared_widgets/song/song_list_tile.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
-  const DashboardScreen({Key? key, required this.username}) : super(key: key);
-
-  final String username;
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -32,7 +32,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         builder: (context) {
           bool loading = ref.watch(songsProvider).loading;
           List<String> songsList = ref.watch(songsProvider).songsList;
-          Map<String, dynamic> songsMap = ref.watch(songsProvider).songsMap;
+          AppUser user = ref.watch(authService).currentUser!;
 
           if (!loading) {
             return SingleChildScrollView(
@@ -44,7 +44,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      'Welcome ${widget.username}!',
+                      'Welcome ${user.name}!',
                       style: Theme.of(context)
                           .textTheme
                           .headline6!
@@ -60,31 +60,31 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 200,
-                    child: Builder(
-                      builder: (ctx) {
-                        List<Widget> widgets = [];
+                  Builder(
+                    builder: (ctx) {
+                      List<Widget> widgets = [];
 
-                        for (int i = 0; i < songsList.length; i++) {
-                          final Widget widget = Padding(
-                            padding: EdgeInsets.only(
-                                left: (i == 0) ? 20.0 : 0.0, right: 20.0),
-                            child: SongCoverWidget(
-                              id: songsList[i],
-                            ),
-                          );
+                      for (int i = 0; i < songsList.length; i++) {
+                        final Widget widget = Padding(
+                          padding: EdgeInsets.only(
+                              left: (i == 0) ? 20.0 : 0.0, right: 20.0),
+                          child: SongCoverWidget(
+                            id: songsList[i],
+                          ),
+                        );
 
-                          widgets.add(widget);
-                        }
+                        widgets.add(widget);
+                      }
 
-                        return ListView(
+                      return SizedBox(
+                        height: 230,
+                        child: ListView(
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: [...widgets],
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 20),
                   Padding(
@@ -117,7 +117,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

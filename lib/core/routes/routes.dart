@@ -4,6 +4,7 @@ import 'package:music_search_app/presentation/screens/authentication/auth_builde
 import 'package:music_search_app/presentation/screens/authentication/sign_in_screen.dart';
 import 'package:music_search_app/presentation/screens/authentication/sign_up_screen.dart';
 import 'package:music_search_app/presentation/screens/favorites/favorites_screen.dart';
+import 'package:music_search_app/presentation/screens/song_details/song_details_screen.dart';
 import 'package:music_search_app/presentation/screens/splash_screen/splash_screen.dart';
 
 class Routes {
@@ -29,6 +30,10 @@ class Routes {
         return routeBuilder(const AuthBuilder());
       case '/favorites':
         return routeBuilder(const FavoritesScreen());
+      case '/song':
+        return routeBuilder(SongDetailsScreen(
+          id: map!['id'],
+        ));
       default:
         return routeBuilder(const Scaffold(
           body: Center(child: Text('404')),

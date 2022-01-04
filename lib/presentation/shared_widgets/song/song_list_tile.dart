@@ -30,10 +30,13 @@ class SongListTile extends ConsumerWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.network(
-                  song.thumbnailUrl,
+                SizedBox(
                   height: 40,
-                  fit: BoxFit.cover,
+                  width: 40,
+                  child: Image.network(
+                    song.thumbnailUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(
                   width: 16,
