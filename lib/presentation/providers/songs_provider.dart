@@ -107,9 +107,6 @@ class SongsProvider extends ChangeNotifier {
     AppUser user = _reader(authService).currentUser!;
     Song song = _songsMap[id]!;
 
-    print("OLD FAVORITES LIST");
-    print(_favSongsList);
-
     if (isFavorited) {
       _favSongsList.add(id);
       Song newSong = song.copyWith(isFavorited);
@@ -119,7 +116,7 @@ class SongsProvider extends ChangeNotifier {
 
       // Update user data
       user.favoriteList.add(id);
-      _reader(databaseService).updateUser(user);
+      await _reader(databaseService).updateUser(user);
     } else {
       _favSongsList.remove(id);
       Song newSong = song.copyWith(isFavorited);
@@ -129,9 +126,7 @@ class SongsProvider extends ChangeNotifier {
 
       // Update user data
       user.favoriteList.remove(id);
-      _reader(databaseService).updateUser(user);
+      await _reader(databaseService).updateUser(user);
     }
-    print("Favorites list");
-    print(_favSongsList);
   }
 }

@@ -68,7 +68,7 @@ class _SongDetailsScreenState extends State<SongDetailsScreen> {
                           ),
                         ),
                         Container(
-                          height: size.height * 0.7,
+                          height: size.height,
                           width: size.width,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -85,7 +85,7 @@ class _SongDetailsScreenState extends State<SongDetailsScreen> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               SizedBox(
-                                height: size.height * 0.3,
+                                height: size.height * 0.6,
                               ),
                               Text(
                                 song.title,
