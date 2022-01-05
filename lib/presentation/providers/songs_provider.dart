@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:music_search_app/data/models/app_user.dart';
 import 'package:music_search_app/data/models/artist.dart';
 import 'package:music_search_app/data/models/song.dart';
+import 'package:music_search_app/presentation/providers/auth_service.dart';
+import 'package:music_search_app/presentation/providers/database_service.dart';
 
 final songsProvider = ChangeNotifierProvider((ref) => SongsProvider(ref.read));
 
@@ -13,12 +17,15 @@ class SongsProvider extends ChangeNotifier {
   bool _loading = false;
 
   final List<String> _songsList = [];
+  List<String> _favSongsList = [];
   final List<String> _artistsList = [];
 
   final Map<String, Song> _songsMap = {};
   final Map<String, Artist> _artistsMap = {};
 
   List<String> get songsList => _songsList;
+
+  List<String> get favSongsList => _favSongsList;
 
   List<String> get artistsList => _artistsList;
 
@@ -33,15 +40,18 @@ class SongsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  set favSongsList(val) {
+    _favSongsList = val;
+    notifyListeners();
+  }
+
   SongsProvider(this._reader);
 
   Future<void> initializeSongsData() async {
-    print("INITIALIZING START");
     loading = true;
     await getSongs();
     await getArtists();
     loading = false;
-    print("INITIALIZING DONE");
   }
 
   Future<void> getSongs() async {
@@ -54,7 +64,13 @@ class SongsProvider extends ChangeNotifier {
 
     for (Song song in songsList) {
       _songsList.add(song.id);
-      _songsMap[song.id] = song;
+
+      if (_favSongsList.contains(song.id)) {
+        Song newSong = song.copyWith(true);
+        _songsMap[song.id] = newSong;
+      } else {
+        _songsMap[song.id] = song;
+      }
 
       for (Artist artist in song.artists) {
         _artistsMap[artist.id] = artist;
@@ -77,5 +93,45 @@ class SongsProvider extends ChangeNotifier {
       _artistsMap[artist.id] = artist;
     }
     notifyListeners();
+  }
+
+  Future<void> addSongToFavorites(String id) async {
+    await _toggleFavorite(id, true);
+  }
+
+  Future<void> removeSongFromFavorites(String id) async {
+    await _toggleFavorite(id, false);
+  }
+
+  Future<void> _toggleFavorite(String id, bool isFavorited) async {
+    AppUser user = _reader(authService).currentUser!;
+    Song song = _songsMap[id]!;
+
+    print("OLD FAVORITES LIST");
+    print(_favSongsList);
+
+    if (isFavorited) {
+      _favSongsList.add(id);
+      Song newSong = song.copyWith(isFavorited);
+      _songsMap[id] = newSong;
+      notifyListeners();
+      Fluttertoast.showToast(msg: 'Added to favorites');
+
+      // Update user data
+      user.favoriteList.add(id);
+      _reader(databaseService).updateUser(user);
+    } else {
+      _favSongsList.remove(id);
+      Song newSong = song.copyWith(isFavorited);
+      _songsMap[id] = newSong;
+      notifyListeners();
+      Fluttertoast.showToast(msg: 'Removed from favorites');
+
+      // Update user data
+      user.favoriteList.remove(id);
+      _reader(databaseService).updateUser(user);
+    }
+    print("Favorites list");
+    print(_favSongsList);
   }
 }

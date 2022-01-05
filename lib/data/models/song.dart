@@ -6,7 +6,6 @@ class Song {
   final List<Artist> artists;
   final String thumbnailUrl;
   final bool isFavorited;
-  final String webPageUrl;
 
   Song({
     required this.id,
@@ -14,11 +13,19 @@ class Song {
     required this.artists,
     required this.thumbnailUrl,
     required this.isFavorited,
-    required this.webPageUrl,
   });
 
+  Song copyWith(bool newIsFavorited) {
+    return Song(
+      id: id,
+      title: title,
+      artists: artists,
+      thumbnailUrl: thumbnailUrl,
+      isFavorited: newIsFavorited,
+    );
+  }
+
   factory Song.fromJson(Map<String, dynamic> map) {
-    print(map);
     String id = map['id'];
     String title = map['title'];
     List<Artist> artists = map['artists']
@@ -28,7 +35,6 @@ class Song {
         .toList();
     String thumbnailUrl = map['thumbnailUrl'];
     bool isFavorited = map['isFavorited'];
-    String webPageUrl = map['webPageUrl'];
 
     return Song(
       id: id,
@@ -36,7 +42,17 @@ class Song {
       artists: artists,
       thumbnailUrl: thumbnailUrl,
       isFavorited: isFavorited,
-      webPageUrl: webPageUrl,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = {};
+
+    data['id'] = id;
+    data['title'] = title;
+    data['artists'] = artists.map((e) => e.toJson()).toList();
+    data['isFavorited'] = isFavorited;
+
+    return data;
   }
 }

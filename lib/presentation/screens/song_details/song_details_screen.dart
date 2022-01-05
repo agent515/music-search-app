@@ -97,12 +97,23 @@ class _SongDetailsScreenState extends State<SongDetailsScreen> {
                               const SizedBox(height: 20),
                               _buildArtists(song.artists),
                               const SizedBox(height: 30),
-                              Icon(
-                                song.isFavorited
-                                    ? Icons.favorite
-                                    : Icons.favorite_border_outlined,
-                                color: AppColors.darkPink,
-                                size: 50,
+                              IconButton(
+                                onPressed: () {
+                                  song.isFavorited
+                                      ? ref
+                                          .read(songsProvider)
+                                          .removeSongFromFavorites(song.id)
+                                      : ref
+                                          .read(songsProvider)
+                                          .addSongToFavorites(song.id);
+                                },
+                                icon: Icon(
+                                  song.isFavorited
+                                      ? Icons.favorite
+                                      : Icons.favorite_border_outlined,
+                                  color: AppColors.darkPink,
+                                  size: 50,
+                                ),
                               ),
                             ],
                           ),

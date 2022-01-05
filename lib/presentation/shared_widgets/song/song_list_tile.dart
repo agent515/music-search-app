@@ -72,7 +72,11 @@ class SongListTile extends ConsumerWidget {
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      song.isFavorited
+                          ? ref.read(songsProvider).removeSongFromFavorites(id)
+                          : ref.read(songsProvider).addSongToFavorites(id);
+                    },
                     icon: Icon(
                       song.isFavorited
                           ? Icons.favorite

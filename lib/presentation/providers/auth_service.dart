@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:music_search_app/data/models/app_user.dart';
 import 'package:music_search_app/presentation/providers/database_service.dart';
+import 'package:music_search_app/presentation/providers/songs_provider.dart';
 
 final authService = ChangeNotifierProvider((ref) => AuthService(ref.read));
 
@@ -35,6 +36,8 @@ class AuthService extends ChangeNotifier {
     _auth.userChanges().listen((user) async {
       if (user != null) {
         _currentUser = await _reader(databaseService).getUser(user.uid);
+        _reader(songsProvider).favSongsList.clear();
+        _reader(songsProvider).favSongsList.addAll(_currentUser!.favoriteList);
       } else {
         _currentUser = null;
       }
