@@ -28,4 +28,9 @@ class Artist {
     map['thumbnailUrl'] = thumbnailUrl;
     return map;
   }
+
+  @override
+  String toString() {
+    return name;
+  }
 }
