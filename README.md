@@ -12,6 +12,6 @@ The name of the app is as misleading as the name of a certain scripting language
 
 ## Preview
 
-<video src="docs/assets/app_flow.mp4" width = "200" autoplay=true>
+https://user-images.githubusercontent.com/46898603/153201022-2ea61a03-1cac-4863-b849-e38c099ceb6e.mp4
 
 Built using Flutter &#x1F499;
